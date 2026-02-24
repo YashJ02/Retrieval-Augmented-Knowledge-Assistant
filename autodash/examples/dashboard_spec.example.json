@@ -1,0 +1,99 @@
+{
+  "dataset_id": "c5a8fc75-a261-4e5e-acdb-53ee0f5ca099",
+  "detected_type": "TIME_SERIES_BUSINESS",
+  "kpis": [
+    {
+      "kpi_id": "row_count",
+      "title": "Row Count",
+      "value": 10452,
+      "format": "number",
+      "description": "Total number of records."
+    },
+    {
+      "kpi_id": "metric_sum",
+      "title": "revenue Sum",
+      "value": 1923450.7,
+      "format": "number"
+    },
+    {
+      "kpi_id": "metric_avg",
+      "title": "revenue Avg",
+      "value": 184.01,
+      "format": "number"
+    },
+    {
+      "kpi_id": "growth_percent",
+      "title": "Growth %",
+      "value": 11.48,
+      "format": "percent",
+      "description": "Relative growth from first to last monthly bucket."
+    }
+  ],
+  "charts": [
+    {
+      "chart_id": "line_metric_over_time",
+      "title": "revenue Over Time",
+      "type": "line",
+      "sql": "SELECT date_trunc('day', \"order_date\")::DATE AS x, SUM(\"revenue\") AS y FROM \"dataset_c5a8fc75_a261_4e5e_acdb_53ee0f5ca099\" WHERE \"order_date\" IS NOT NULL AND \"revenue\" IS NOT NULL {{filters}} GROUP BY 1 ORDER BY 1 LIMIT 365",
+      "x": "x",
+      "y": "y",
+      "group_by": null,
+      "limits": {
+        "max_points": 365
+      }
+    },
+    {
+      "chart_id": "bar_top_categories",
+      "title": "Top region",
+      "type": "bar",
+      "sql": "SELECT \"region\" AS x, SUM(\"revenue\") AS y FROM \"dataset_c5a8fc75_a261_4e5e_acdb_53ee0f5ca099\" WHERE \"region\" IS NOT NULL {{filters}} GROUP BY 1 ORDER BY y DESC LIMIT 12",
+      "x": "x",
+      "y": "y",
+      "group_by": "region",
+      "limits": {
+        "top_n": 12
+      }
+    }
+  ],
+  "filters": [
+    {
+      "filter_id": "order_date_range",
+      "label": "order_date Range",
+      "type": "date_range",
+      "column": "order_date",
+      "options": [],
+      "min": "2023-01-01",
+      "max": "2025-12-31"
+    },
+    {
+      "filter_id": "region_values",
+      "label": "region",
+      "type": "categorical",
+      "column": "region",
+      "options": [
+        "Central",
+        "East",
+        "West"
+      ],
+      "min": null,
+      "max": null
+    }
+  ],
+  "insights": [
+    {
+      "insight_id": "trend_growth",
+      "title": "Trend",
+      "description": "Primary metric increased by 11.48% across the observed period.",
+      "severity": "info"
+    },
+    {
+      "insight_id": "top_contributor",
+      "title": "Top Contributor",
+      "description": "West is the largest segment with 4011 records.",
+      "severity": "info"
+    }
+  ],
+  "version": 1,
+  "created_at": "2026-02-23T17:44:21.886325+00:00"
+}
+
